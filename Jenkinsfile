@@ -20,7 +20,7 @@ pipeline {
     stages {
 
     // Tests
-    stage('Unit Tests') {
+    stage('Unit Tests Node JS') {
       steps{
         script {
           sh 'npm install'
@@ -30,7 +30,7 @@ pipeline {
     }
         
     // Building Docker images
-    stage('Building image') {
+    stage('Building Docker image') {
       steps{
         script {
           dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
@@ -39,7 +39,7 @@ pipeline {
     }
    
     // Uploading Docker images into AWS ECR
-    stage('Pushing to ECR') {
+    stage('Pushing to AWS ECR') {
      steps{  
          script {
 			docker.withRegistry("https://" + REPOSITORY_URI, "ecr:${AWS_DEFAULT_REGION}:" + registryCredential) {
@@ -49,7 +49,7 @@ pipeline {
         }
       }
       
-    stage('Deploy') {
+    stage('Deploy AWS ECS') {
      steps{
             withAWS(credentials: registryCredential, region: "${AWS_DEFAULT_REGION}") {
                 script {
