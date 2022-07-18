@@ -1,16 +1,16 @@
 pipeline {
     agent any
     environment {
-        AWS_ACCOUNT_ID="CHANGE_ME"
-        AWS_DEFAULT_REGION="CHANGE_ME" 
-	CLUSTER_NAME="CHANGE_ME"
-	SERVICE_NAME="CHANGE_ME"
-	TASK_DEFINITION_NAME="CHANGE_ME"
-	DESIRED_COUNT="CHANGE_ME"
-        IMAGE_REPO_NAME="CHANGE_ME"
+        AWS_ACCOUNT_ID="500279333770"
+        AWS_DEFAULT_REGION="us-west-2" 
+	CLUSTER_NAME="default"
+	SERVICE_NAME="nodejs-container-service"
+	TASK_DEFINITION_NAME="first-run-task-definition"
+	DESIRED_COUNT="2"
+        IMAGE_REPO_NAME="500279333770.dkr.ecr.us-west-2.amazonaws.com/demo"
         IMAGE_TAG="${env.BUILD_ID}"
         REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
-	registryCredential = "CHANGE_ME"
+	registryCredential = "demo-admin-user-aws"
     }
    
     stages {
